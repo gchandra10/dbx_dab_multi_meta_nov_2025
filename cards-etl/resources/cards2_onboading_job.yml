@@ -1,7 +1,7 @@
 resources:
   jobs:
-    cards_onboarding_job:
-      name: Onboard Cards
+    cards_onboarding_job2:
+      name: Onboard Cards2
       description: "Job to Onboard Bronze and Silver tables for Cards ETL"
 
       tasks:
@@ -11,7 +11,7 @@ resources:
             entry_point: run
             named_parameters:
               database: ${var.catalog}.${var.schema}
-              onboarding_file_path: /Volumes/${var.catalog}/${var.schema}/conf_files/${workspace.current_user.short_name}/cards/.internal/cards_onboarding.json
+              onboarding_file_path: /Volumes/${var.catalog}/${var.schema}/conf_files/${workspace.current_user.short_name}/cards/.internal/cards_onboarding2.json
               bronze_dataflowspec_table: ${var.bronze_dataflowspecTable}
               silver_dataflowspec_table: ${var.silver_dataflowspecTable}
               uc_enabled: "True"

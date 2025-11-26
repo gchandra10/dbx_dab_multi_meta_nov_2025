@@ -1,0 +1,55 @@
+resources:
+  jobs:
+    cards_r2s_job2:
+      name: Cards - Raw To Silver2
+      description: "Job to execute the Bronze and Silver DLT-META pipelines"
+
+      tasks:
+        - task_key: execute_bronze_cards
+          description: "Run DLT pipeline for Bronze Cards"
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.pipeline_bronze_cards2.id}
+            full_refresh: false
+
+        - task_key: execute_silver_cards
+          description: "Run DLT pipeline for Silver Cards"
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.pipeline_silver_cards2.id}
+            full_refresh: false
+          depends_on:
+            - task_key: execute_bronze_cards
+            
+  pipelines:
+    pipeline_bronze_cards2:
+      name: Cards - R2B Pipeline2
+      catalog: ${var.catalog}
+      schema: ${var.schema}
+      development: ${var.development_enabled}
+      photon: ${var.photon_enabled}
+      serverless: ${var.serverless_enabled}
+      libraries:
+        - notebook:
+            path: ${workspace.file_path}/src/deploy_pipeline
+
+      configuration:
+        layer: bronze
+        bronze.dataflowspecTable: ${var.bronze_dataflowspecTable}
+        bronze.group: cards_onboarding
+        bundle.sourcePath: ${workspace.file_path}/src
+
+    pipeline_silver_cards2:
+      name: Cards - B2S Pipeline2
+      catalog: ${var.catalog}
+      schema: ${var.schema}
+      development: ${var.development_enabled}
+      photon: ${var.photon_enabled}
+      serverless: ${var.serverless_enabled}
+      libraries:
+        - notebook:
+            path: ${workspace.file_path}/src/deploy_pipeline
+
+      configuration:
+        layer: silver
+        silver.dataflowspecTable: ${var.silver_dataflowspecTable}
+        silver.group: cards_onboarding
+        bundle.sourcePath: ${workspace.file_path}/src 

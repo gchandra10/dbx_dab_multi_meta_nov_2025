@@ -1,13 +1,13 @@
 [
     {
-        "data_flow_id": "001",
+        "data_flow_id": "002",
         "data_flow_group": "cards_onboarding",
 
         "source_system": "Manual_Download",
         "source_format": "cloudFiles",
 
         "source_details": {
-            "source_path_dev": "/Volumes/{catalog}/{schema}/conf_files/{username}/cards/.internal/cards.csv",
+            "source_path_dev": "/Volumes/{catalog}/{schema}/conf_files/{username}/cards/.internal/cards_set2.csv",
             "source_metadata": {
                 "include_autoloader_metadata_column": "True",
                 "autoloader_metadata_col_name": "source_metadata",
@@ -19,8 +19,8 @@
         },
 
         "bronze_database_dev": "{catalog}.{schema}",
-        "bronze_table": "bronze_cards",
-        "bronze_quarantine_table": "bronze_cards_quarantine",
+        "bronze_table": "bronze_cards2",
+        "bronze_quarantine_table": "bronze_cards2_quarantine",
         "bronze_cluster_by": ["card_type"],
 
         "bronze_table_properties": {
@@ -47,7 +47,7 @@
 
         "silver_database_dev": "{catalog}.{schema}",
 
-        "silver_table": "silver_cards",
+        "silver_table": "silver_cards2",
         "silver_cluster_by": ["card_type"],
 
         "silver_table_properties": {
@@ -62,7 +62,7 @@
             "delta.logRetentionDuration": "30 days"
         },
 
-        "silver_transformation_json_dev": "/Volumes/{catalog}/{schema}/conf_files/{username}/cards/.internal/cards_silver_query.json",
+        "silver_transformation_json_dev": "/Volumes/{catalog}/{schema}/conf_files/{username}/cards/.internal/cards_silver_query2.json",
 
         "silver_cdc_apply_changes": {
             "keys": ["card_id"],
