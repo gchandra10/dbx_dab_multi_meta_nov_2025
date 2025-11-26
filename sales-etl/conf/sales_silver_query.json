@@ -1,0 +1,13 @@
+[
+    {
+        "target_table": "silver_sales",
+        "select_exp": [
+            "sale_id",
+            "customer_id",
+            "product",
+            "amount",
+            "sale_date",
+            "_rescued_data"
+        ]
+    }
+]

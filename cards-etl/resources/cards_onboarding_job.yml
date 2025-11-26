@@ -1,0 +1,30 @@
+resources:
+  jobs:
+    cards_onboarding_job:
+      name: Onboard Cards
+      description: "Job to onboard bronze and silver tables for cards ETL"
+
+      tasks:
+        - task_key: onboard_bronze_silver_tables
+          python_wheel_task:
+            package_name: dlt_meta
+            entry_point: run
+            named_parameters:
+              database: ${var.catalog}.${var.schema}
+              onboarding_file_path: /Volumes/${var.catalog}/${var.schema}/conf_files/${workspace.current_user.short_name}/cards/.internal/cards_onboarding.json
+              bronze_dataflowspec_table: ${var.bronze_dataflowspecTable}
+              silver_dataflowspec_table: ${var.silver_dataflowspecTable}
+              uc_enabled: "True"
+              import_author: "ganeshchandra"
+              version: "v1"
+              onboard_layer: bronze_silver
+              overwrite: "True"
+              env: ${bundle.target}
+          environment_key: default
+
+      environments:
+        - environment_key: default
+          spec:
+            environment_version: "4"
+            dependencies:
+              - dlt-meta

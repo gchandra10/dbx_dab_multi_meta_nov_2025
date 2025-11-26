@@ -1,0 +1,11 @@
+sale_id,customer_id,product,amount,sale_date
+30001,601,Credit Card Fee,28.0,2025-12-01
+30002,602,Personal Loan EMI,340.75,2025-12-02
+30003,603,Overdraft Interest,16.0,2025-12-03
+30004,604,Savings Account Fee,6.0,2025-12-04
+30005,605,Credit Card Fee,35.0,2025-12-05
+30006,606,Mortgage EMI,1280.5,2025-12-06
+30007,607,Personal Loan EMI,295.1,2025-12-07
+30008,608,Credit Card Fee,22.0,2025-12-08
+30009,609,Savings Account Fee,8.5,2025-12-09
+30010,610,Overdraft Interest,13.0,2025-12-10

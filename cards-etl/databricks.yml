@@ -1,0 +1,62 @@
+bundle:
+  name: cards-etl-bundle
+  
+include:
+  - resources/*.yml
+  - resources/*/*.yml
+
+# Variable declarations. These variables are assigned in the dev/prod targets below.
+variables:
+  catalog:
+    description: The catalog to use
+  schema:
+    description: The schema to use
+  photon_enabled:
+    description: Enable Photon optimization
+  serverless_enabled:
+    description: Enable Serverless compute
+  development_enabled:
+    description: Enable Development mode
+  bronze_dataflowspecTable:
+    description: The dataflowspec table for Bronze layer
+  silver_dataflowspecTable:
+    description: The dataflowspec table for Silver layer
+
+targets:
+  dev:
+    mode: development
+    default: true
+    artifacts:
+      cards_conf:
+        path: .
+        files:
+          - source: ./conf/*.json
+      cards_fixtures:
+        path: .
+        files:
+          - source: ./fixtures/*.csv
+    workspace:
+      host: https://adb-984752964297111.11.azuredatabricks.net
+      root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}
+      artifact_path: /Volumes/gannychan/dlt_meta_demo/conf_files/${workspace.current_user.short_name}/cards
+
+    variables:
+      catalog: gannychan
+      schema: dlt_meta_demo
+      photon_enabled: true
+      serverless_enabled: true
+      development_enabled: true
+      bronze_dataflowspecTable: bronze_cards_dataflowspec
+      silver_dataflowspecTable: silver_cards_dataflowspec
+
+  prod:
+    mode: production
+    workspace:
+      host: https://adb-984752964297111.11.azuredatabricks.net
+      root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}
+    variables:
+      catalog: gannychan
+      schema: dlt_meta_demo
+    permissions:
+      - user_name: ${workspace.current_user.userName}
+        level: CAN_MANAGE

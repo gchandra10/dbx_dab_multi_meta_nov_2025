@@ -1,0 +1,13 @@
+[
+    {
+        "target_table": "silver_consumer",
+        "select_exp": [
+            "consumer_id",
+            "name",
+            "age",
+            "segment",
+            "risk_score",
+            "_rescued_data"
+        ]
+    }
+]

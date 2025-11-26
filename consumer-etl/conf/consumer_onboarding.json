@@ -1,0 +1,75 @@
+[
+    {
+        "data_flow_id": "010",
+        "data_flow_group": "consumer_onboarding",
+
+        "source_system": "Manual_Download",
+        "source_format": "cloudFiles",
+
+        "source_details": {
+            "source_path_dev": "/Volumes/gannychan/dlt_meta_demo/conf_files/ganesh_chandra/consumers/.internal/",
+            "source_metadata": {
+                "include_autoloader_metadata_column": "True",
+                "autoloader_metadata_col_name": "source_metadata",
+                "select_metadata_cols": {
+                    "input_file_name": "_metadata.file_name",
+                    "input_file_path": "_metadata.file_path"
+                }
+            }         
+        },
+
+        "bronze_database_dev": "gannychan.dlt_meta_demo",
+        "bronze_table": "bronze_consumer",
+        "bronze_quarantine_table": "bronze_consumer_quarantine",
+        "bronze_cluster_by": ["segment"],
+
+        "bronze_table_properties" : {
+            "pipelines.autoOptimize.managed": "true", 
+            "pipelines.reset.allowed": "true",
+            "delta.autoOptimize.optimizeWrite": "true",
+            "delta.autoOptimize.autoCompact": "true",
+            "delta.tuneFileSizesForRewrites": "true",
+            "delta.columnMapping.mode": "name",
+            "delta.checkpointRetentionDuration": "30 days",
+            "delta.deletedFileRetentionDuration": "30 days",
+            "delta.logRetentionDuration": "30 days",
+            "clusterByAuto" : "true"
+        },
+
+        "bronze_reader_options": {
+            "cloudFiles.format": "csv",
+            "pathGlobFilter": "*.csv",
+            "cloudFiles.inferColumnTypes": "true",
+            "cloudFiles.rescuedDataColumn": "_rescued_data",
+            "header": "true",
+            "sep": ","
+        },
+
+        "silver_database_dev": "gannychan.dlt_meta_demo",
+
+        "silver_table": "silver_consumer",
+        "silver_cluster_by": ["segment"],
+
+        "silver_table_properties" : {
+            "pipelines.autoOptimize.managed": "true", 
+            "pipelines.reset.allowed": "true",
+            "delta.autoOptimize.optimizeWrite": "true",
+            "delta.autoOptimize.autoCompact": "true",
+            "delta.tuneFileSizesForRewrites": "true",
+            "delta.columnMapping.mode": "name",
+            "delta.checkpointRetentionDuration": "30 days",
+            "delta.deletedFileRetentionDuration": "30 days",
+            "delta.logRetentionDuration": "30 days"
+        },
+
+        "silver_transformation_json_dev": "/Volumes/gannychan/dlt_meta_demo/conf_files/ganesh_chandra/consumers/.internal/consumer_silver_query.json",
+
+        "silver_cdc_apply_changes": {
+            "keys": [
+                "consumer_id"
+            ],
+            "sequence_by": "consumer_id",
+            "scd_type": "1"
+        }
+    }
+]

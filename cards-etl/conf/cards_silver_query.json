@@ -1,0 +1,13 @@
+[
+    {
+        "target_table": "silver_cards",
+        "select_exp": [
+            "card_id",
+            "customer_id",
+            "card_type",
+            "status",
+            "credit_limit",
+            "_rescued_data"
+        ]
+    }
+]
