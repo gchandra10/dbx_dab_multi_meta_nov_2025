@@ -2,7 +2,7 @@ resources:
   jobs:
     cards_onboarding_job:
       name: Onboard Cards
-      description: "Job to onboard bronze and silver tables for cards ETL"
+      description: "Job to Onboard Bronze and Silver tables for Cards ETL"
 
       tasks:
         - task_key: onboard_bronze_silver_tables

@@ -2,7 +2,7 @@ resources:
   jobs:
     sales_onboarding_job:
       name: Onboard Sales
-      description: "Job to onboard bronze and silver tables for sales ETL"
+      description: "Job to Onboard Bronze and Silver tables for Sales ETL"
 
       tasks:
         - task_key: onboard_bronze_silver_tables

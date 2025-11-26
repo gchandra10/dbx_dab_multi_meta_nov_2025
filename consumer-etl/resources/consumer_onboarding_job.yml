@@ -2,7 +2,7 @@ resources:
   jobs:
     consumer_onboarding_job:
       name: Onboard Consumers
-      description: "Job to onboard bronze and silver tables for consumer ETL"
+      description: "Job to Onboard Bronze and Silver tables for Consumer ETL"
 
       tasks:
         - task_key: onboard_bronze_silver_tables
