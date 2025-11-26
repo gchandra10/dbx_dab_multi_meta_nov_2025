@@ -3,6 +3,6 @@ repos:
     hooks:
       - id: render-json-from-template
         name: Render JSON from templates
-        entry: python bundle_script.py .
+        entry: python bundle_script.py path -r .
         language: system
         pass_filenames: false
