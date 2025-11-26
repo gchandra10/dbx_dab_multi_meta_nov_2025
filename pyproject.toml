@@ -16,6 +16,8 @@ dev = [
     "pytest",
     "databricks-dlt",
     "databricks-connect>=15.4,<15.5",
+    "python-dotenv",
+    "pre-commit",
 ]
 
 [project.scripts]

@@ -1,13 +1,13 @@
 [
     {
-        "data_flow_id": "010",
-        "data_flow_group": "consumer_onboarding",
+        "data_flow_id": "100",
+        "data_flow_group": "sales_onboarding",
 
         "source_system": "Manual_Download",
         "source_format": "cloudFiles",
 
         "source_details": {
-            "source_path_dev": "/Volumes/gannychan/dlt_meta_demo/conf_files/ganesh_chandra/consumers/.internal/",
+            "source_path_dev": "/Volumes/{catalog}/{schema}/conf_files/{username}/sales/.internal/",
             "source_metadata": {
                 "include_autoloader_metadata_column": "True",
                 "autoloader_metadata_col_name": "source_metadata",
@@ -15,16 +15,16 @@
                     "input_file_name": "_metadata.file_name",
                     "input_file_path": "_metadata.file_path"
                 }
-            }         
+            }
         },
 
-        "bronze_database_dev": "gannychan.dlt_meta_demo",
-        "bronze_table": "bronze_consumer",
-        "bronze_quarantine_table": "bronze_consumer_quarantine",
-        "bronze_cluster_by": ["segment"],
+        "bronze_database_dev": "{catalog}.{schema}",
+        "bronze_table": "bronze_sales",
+        "bronze_quarantine_table": "bronze_sales_quarantine",
+        "bronze_cluster_by": ["product"],
 
-        "bronze_table_properties" : {
-            "pipelines.autoOptimize.managed": "true", 
+        "bronze_table_properties": {
+            "pipelines.autoOptimize.managed": "true",
             "pipelines.reset.allowed": "true",
             "delta.autoOptimize.optimizeWrite": "true",
             "delta.autoOptimize.autoCompact": "true",
@@ -33,7 +33,7 @@
             "delta.checkpointRetentionDuration": "30 days",
             "delta.deletedFileRetentionDuration": "30 days",
             "delta.logRetentionDuration": "30 days",
-            "clusterByAuto" : "true"
+            "clusterByAuto": "true"
         },
 
         "bronze_reader_options": {
@@ -45,13 +45,13 @@
             "sep": ","
         },
 
-        "silver_database_dev": "gannychan.dlt_meta_demo",
+        "silver_database_dev": "{catalog}.{schema}",
 
-        "silver_table": "silver_consumer",
-        "silver_cluster_by": ["segment"],
+        "silver_table": "silver_sales",
+        "silver_cluster_by": ["product"],
 
-        "silver_table_properties" : {
-            "pipelines.autoOptimize.managed": "true", 
+        "silver_table_properties": {
+            "pipelines.autoOptimize.managed": "true",
             "pipelines.reset.allowed": "true",
             "delta.autoOptimize.optimizeWrite": "true",
             "delta.autoOptimize.autoCompact": "true",
@@ -62,13 +62,11 @@
             "delta.logRetentionDuration": "30 days"
         },
 
-        "silver_transformation_json_dev": "/Volumes/gannychan/dlt_meta_demo/conf_files/ganesh_chandra/consumers/.internal/consumer_silver_query.json",
+        "silver_transformation_json_dev": "/Volumes/{catalog}/{schema}/conf_files/{username}/sales/.internal/sales_silver_query.json",
 
         "silver_cdc_apply_changes": {
-            "keys": [
-                "consumer_id"
-            ],
-            "sequence_by": "consumer_id",
+            "keys": ["sale_id"],
+            "sequence_by": "sale_id",
             "scd_type": "1"
         }
     }

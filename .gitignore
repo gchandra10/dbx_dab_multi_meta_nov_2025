@@ -13,3 +13,7 @@ scratch/**
 cards-etl/.databricks/
 consumer-etl/.databricks/
 sales-etl/.databricks/
+
+cards-etl/conf/**/*.json
+consumer-etl/conf/**/*.json
+sales-etl/conf/**/*.json

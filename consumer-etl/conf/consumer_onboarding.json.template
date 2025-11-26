@@ -1,13 +1,13 @@
 [
     {
-        "data_flow_id": "001",
-        "data_flow_group": "cards_onboarding",
+        "data_flow_id": "010",
+        "data_flow_group": "consumer_onboarding",
 
         "source_system": "Manual_Download",
         "source_format": "cloudFiles",
 
         "source_details": {
-            "source_path_dev": "/Volumes/gannychan/dlt_meta_demo/conf_files/ganesh_chandra/cards/.internal/",
+            "source_path_dev": "/Volumes/{catalog}/{schema}/conf_files/{username}/consumers/.internal/",
             "source_metadata": {
                 "include_autoloader_metadata_column": "True",
                 "autoloader_metadata_col_name": "source_metadata",
@@ -18,13 +18,13 @@
             }         
         },
 
-        "bronze_database_dev": "gannychan.dlt_meta_demo",
-        "bronze_table": "bronze_cards",
-        "bronze_quarantine_table": "bronze_cards_quarantine",
-        "bronze_cluster_by": ["card_type"],
+        "bronze_database_dev": "{catalog}.{schema}",
+        "bronze_table": "bronze_consumer",
+        "bronze_quarantine_table": "bronze_consumer_quarantine",
+        "bronze_cluster_by": ["segment"],
 
-        "bronze_table_properties" : {
-            "pipelines.autoOptimize.managed": "true", 
+        "bronze_table_properties": {
+            "pipelines.autoOptimize.managed": "true",
             "pipelines.reset.allowed": "true",
             "delta.autoOptimize.optimizeWrite": "true",
             "delta.autoOptimize.autoCompact": "true",
@@ -33,7 +33,7 @@
             "delta.checkpointRetentionDuration": "30 days",
             "delta.deletedFileRetentionDuration": "30 days",
             "delta.logRetentionDuration": "30 days",
-            "clusterByAuto" : "true"
+            "clusterByAuto": "true"
         },
 
         "bronze_reader_options": {
@@ -45,13 +45,13 @@
             "sep": ","
         },
 
-        "silver_database_dev": "gannychan.dlt_meta_demo",
+        "silver_database_dev": "{catalog}.{schema}",
 
-        "silver_table": "silver_cards",
-        "silver_cluster_by": ["card_type"],
+        "silver_table": "silver_consumer",
+        "silver_cluster_by": ["segment"],
 
-        "silver_table_properties" : {
-            "pipelines.autoOptimize.managed": "true", 
+        "silver_table_properties": {
+            "pipelines.autoOptimize.managed": "true",
             "pipelines.reset.allowed": "true",
             "delta.autoOptimize.optimizeWrite": "true",
             "delta.autoOptimize.autoCompact": "true",
@@ -62,13 +62,13 @@
             "delta.logRetentionDuration": "30 days"
         },
 
-        "silver_transformation_json_dev": "/Volumes/gannychan/dlt_meta_demo/conf_files/ganesh_chandra/cards/.internal/cards_silver_query.json",
+        "silver_transformation_json_dev": "/Volumes/{catalog}/{schema}/conf_files/{username}/consumers/.internal/consumer_silver_query.json",
 
         "silver_cdc_apply_changes": {
             "keys": [
-                "card_id"
+                "consumer_id"
             ],
-            "sequence_by": "card_id",
+            "sequence_by": "consumer_id",
             "scd_type": "1"
         }
     }

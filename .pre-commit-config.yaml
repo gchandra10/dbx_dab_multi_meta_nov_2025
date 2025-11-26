@@ -1,0 +1,8 @@
+repos:
+  - repo: local
+    hooks:
+      - id: render-json-from-template
+        name: Render JSON from templates
+        entry: python bundle_script.py cards-etl/conf/
+        language: system
+        pass_filenames: false

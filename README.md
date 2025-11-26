@@ -1,7 +1,7 @@
 # Key Points
 
-- DABS can’t deploy a single pipeline in isolation. Splitting the monolithic bundle into per-source folders gives you room to deploy, test, and iterate independently.
-
+- DABS can’t deploy a single pipeline in isolation. Splitting the monolithic bundle into per-source folders gives you room to deploy, test, and iterate independently. This is an alternate we can discuss about.
+  
 ```
 cards-etl
   |- conf
@@ -23,16 +23,12 @@ sales-etl
   
 ```
 
+
 - Variable substitution in JSON config files is handled through a Python script. Keep template JSON files in a dedicated folder and write the substituted output into the conf directory.
-  
-- The script supports targeted updates. Pass a specific JSON template path to update only that file; omit the parameter to update everything.
 
 ```
-python bundle_script.py cards-etl/template/cards_onboarding.template
+python bundle_script.py cards-etl/conf
 
-or
-
-python bundle_script.py all
 ```
   
 - Substitution can be done locally before running:
@@ -40,12 +36,14 @@ python bundle_script.py all
 ```databricks bundle deploy -t dev```
 
 - For Validate and Prod, run: ```python bundle_script.py <>```
-  
+
 as part of the CI/CD pipeline, and only process config files touched in the new PR rather than all of them.
 
 
 ```
 cd cards-etl
+
+python bundle_script.py cards-etl/conf
 
 databricks bundle validate
 
