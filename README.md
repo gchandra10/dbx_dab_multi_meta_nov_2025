@@ -20,20 +20,31 @@ sales-etl
   |- resources
   |- src
   databricks.yml
-  
 ```
-
 
 - Variable substitution in JSON config files is handled through a Python script. Keep template JSON files in a dedicated folder and write the substituted output into the conf directory.
 
 ```
 python bundle_script.py cards-etl/conf
+```
+
+- Included Git Pre Commit webhook, that gets fired when Developer issues a commit. 
 
 ```
-  
+git add .
+git commit -m "message"
+```
+When precommit hook executes, it automatically converts the .template to .json.
+
+- Added *.JSON to .gitignore so the .template will be copied in Repo and no one manually edits the JSON files.
+
 - Substitution can be done locally before running:
   
-```databricks bundle deploy -t dev```
+```
+databricks bundle deploy -t dev
+```
+
+------
 
 - For Validate and Prod, run: ```python bundle_script.py <>```
 
@@ -59,4 +70,3 @@ databricks bundle run cards_r2s_job
 
 ```
 
-Similar steps for other folders
