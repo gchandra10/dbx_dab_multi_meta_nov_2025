@@ -3,6 +3,6 @@ repos:
     hooks:
       - id: render-json-from-template
         name: Render JSON from templates
-        entry: python bundle_script.py cards-etl/conf/
+        entry: python bundle_script.py .
         language: system
         pass_filenames: false
