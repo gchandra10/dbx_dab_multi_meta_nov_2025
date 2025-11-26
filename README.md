@@ -34,6 +34,7 @@ python bundle_script.py cards-etl/conf
 git add .
 git commit -m "message"
 ```
+
 When precommit hook executes, it automatically converts the .template to .json.
 
 - Added *.JSON to .gitignore so the .template will be copied in Repo and no one manually edits the JSON files.
