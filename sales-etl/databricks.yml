@@ -46,7 +46,7 @@ targets:
       schema: dlt_meta_demo
       photon_enabled: true
       serverless_enabled: true
-      development_enabled: true
+      development_enabled: false
       bronze_dataflowspecTable: bronze_sales_dataflowspec
       silver_dataflowspecTable: silver_sales_dataflowspec
 
