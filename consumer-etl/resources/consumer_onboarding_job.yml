@@ -6,20 +6,27 @@ resources:
 
       tasks:
         - task_key: onboard_bronze_silver_tables
-          python_wheel_task:
-            package_name: dlt_meta
-            entry_point: run
-            named_parameters:
-              database: ${var.catalog}.${var.schema}
-              onboarding_file_path: /Volumes/${var.catalog}/${var.schema}/conf_files/${workspace.current_user.short_name}/consumers/.internal/consumer_onboarding.json
-              bronze_dataflowspec_table: "bronze_consumer_dataflowspec"
-              silver_dataflowspec_table: "silver_consumer_dataflowspec"
-              uc_enabled: "True"
-              import_author: "ganeshchandra"
-              version: "v1"
-              onboard_layer: bronze_silver
-              overwrite: "True"
-              env: ${bundle.target}
+          spark_python_task:
+            python_file: ${workspace.file_path}/src/onboard_bronze_silver.py
+            parameters:
+              - --database
+              - ${var.catalog}.${var.schema}
+              - --onboarding_file_path
+              - /Volumes/${var.catalog}/${var.schema}/conf_files/${workspace.current_user.short_name}/consumers/.internal/consumer_onboarding.json
+              - --bronze_dataflowspec_table
+              - ${var.bronze_dataflowspecTable}
+              - --silver_dataflowspec_table
+              - ${var.silver_dataflowspecTable}
+              - --env
+              - ${bundle.target}
+              - --version
+              - "v1"
+              - --import_author
+              - ganeshchandra
+              - --uc_enabled
+              - "True"
+              - --overwrite
+              - " "
           environment_key: default
 
       environments:

@@ -59,15 +59,53 @@ python bundle_script.py cards-etl/conf
 
 databricks bundle validate
 
-databricks bundle deploy
+databricks bundle deploy -t dev
+```
 
 ## One time Onboarding for a given source
 
+**It calls onboard_bronze_silver.py, if bronze and silver dataflowspec table exists overwrite is set to False. For first time its True.**
+
+```
 databricks bundle run cards_onboarding_job
+
+databricks bundle run cards_onboarding_job2
+```
 
 ## Raw to Bronze to Silver Pipeline. Deploy once run it as many times, manually or triggered.
 
+```
 databricks bundle run cards_r2s_job
+
+
 
 ```
 
+<!-- ## CICD UAT / PROD
+
+```
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Find all top-level directories ending with "-etl"
+# Using -print0 + read -d '' to safely handle special characters in names
+
+find . -maxdepth 1 -type d -name '*-etl' -print0 | while IFS= read -r -d '' dir; do
+  # Strip leading ./ for nicer output
+  bundle_dir="${dir#./}"
+
+  # Ensure this looks like a bundle (must have databricks.yml)
+  if [[ ! -f "${bundle_dir}/databricks.yml" ]]; then
+    echo "Skipping ${bundle_dir}: no databricks.yml"
+    continue
+  fi
+
+  echo "Validating and deploying ${bundle_dir} to prod..."
+  (
+    cd "${bundle_dir}"
+    databricks bundle validate
+    databricks bundle deploy -t prod
+  )
+done
+
+``` -->
