@@ -25,7 +25,8 @@
         "bronze_cdc_apply_changes": {
             "keys": ["card_id"],
             "sequence_by": "ts",
-            "scd_type": "2"
+            "scd_type": "2",
+            "track_history_except_column_list": ["ts","source_metadata","input_file_name","input_file_path","_rescued_data"]
         },
         "bronze_table_properties": {
             "pipelines.autoOptimize.managed": "true",
