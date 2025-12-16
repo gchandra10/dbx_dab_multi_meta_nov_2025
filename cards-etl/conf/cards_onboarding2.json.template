@@ -7,7 +7,7 @@
         "source_format": "cloudFiles",
 
         "source_details": {
-            "source_path_dev": "/Volumes/{catalog}/{schema}/conf_files/{username}/cards/.internal/cards_set2.csv",
+            "source_path_dev": "/Volumes/{catalog}/{schema}/conf_files/{username}/cards/.internal/",
             "source_metadata": {
                 "include_autoloader_metadata_column": "True",
                 "autoloader_metadata_col_name": "source_metadata",

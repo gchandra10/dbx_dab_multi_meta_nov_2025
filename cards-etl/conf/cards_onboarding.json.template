@@ -7,7 +7,7 @@
         "source_format": "cloudFiles",
 
         "source_details": {
-            "source_path_dev": "/Volumes/{catalog}/{schema}/conf_files/{username}/cards/.internal/cards.csv",
+            "source_path_dev": "/Volumes/{catalog}/{schema}/conf_files/{username}/cards/.internal/",
             "source_metadata": {
                 "include_autoloader_metadata_column": "True",
                 "autoloader_metadata_col_name": "source_metadata",
@@ -17,12 +17,16 @@
                 }
             }
         },
-
+        
         "bronze_database_dev": "{catalog}.{schema}",
         "bronze_table": "bronze_cards",
         "bronze_quarantine_table": "bronze_cards_quarantine",
         "bronze_cluster_by": ["card_type"],
-
+        "bronze_cdc_apply_changes": {
+            "keys": ["card_id"],
+            "sequence_by": "ts",
+            "scd_type": "2"
+        },
         "bronze_table_properties": {
             "pipelines.autoOptimize.managed": "true",
             "pipelines.reset.allowed": "true",
@@ -44,9 +48,8 @@
             "header": "true",
             "sep": ","
         },
-
+        
         "silver_database_dev": "{catalog}.{schema}",
-
         "silver_table": "silver_cards",
         "silver_cluster_by": ["card_type"],
 
@@ -66,8 +69,8 @@
 
         "silver_cdc_apply_changes": {
             "keys": ["card_id"],
-            "sequence_by": "card_id",
-            "scd_type": "1"
+            "sequence_by": "ts",
+            "scd_type": "2"
         }
     }
 ]

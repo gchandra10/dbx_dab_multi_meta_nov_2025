@@ -7,7 +7,10 @@
             "card_type",
             "status",
             "credit_limit",
-            "_rescued_data"
+            "ts",
+            "_rescued_data",
+            "__start_at as bronze_start_at",
+            "__end_at as bronze_end_at"
         ]
     }
 ]
