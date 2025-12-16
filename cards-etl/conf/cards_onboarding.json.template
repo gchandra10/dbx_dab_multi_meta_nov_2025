@@ -17,11 +17,10 @@
                 }
             }
         },
-        
-        "bronze_database_dev": "{catalog}.{schema}",
+        "bronze_catalog_dev": "{catalog}",
+        "bronze_database_dev": "{schema}",
         "bronze_table": "bronze_cards",
         "bronze_quarantine_table": "bronze_cards_quarantine",
-        "bronze_cluster_by": ["card_type"],
         "bronze_cdc_apply_changes": {
             "keys": ["card_id"],
             "sequence_by": "ts",
@@ -50,7 +49,8 @@
             "sep": ","
         },
         
-        "silver_database_dev": "{catalog}.{schema}",
+        "silver_catalog_dev": "{catalog}",
+        "silver_database_dev": "{schema}",
         "silver_table": "silver_cards",
         "silver_cluster_by": ["card_type"],
 
@@ -71,7 +71,7 @@
         "silver_cdc_apply_changes": {
             "keys": ["card_id"],
             "sequence_by": "ts",
-            "scd_type": "2"
+            "scd_type": "1"
         }
     }
 ]
