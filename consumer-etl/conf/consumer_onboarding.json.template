@@ -17,12 +17,10 @@
                 }
             }         
         },
-
-        "bronze_database_dev": "{catalog}.{schema}",
+        "bronze_catalog_dev": "{catalog}",
+        "bronze_database_dev": "{schema}",
         "bronze_table": "bronze_consumer",
         "bronze_quarantine_table": "bronze_consumer_quarantine",
-        "bronze_cluster_by": ["segment"],
-
         "bronze_table_properties": {
             "pipelines.autoOptimize.managed": "true",
             "pipelines.reset.allowed": "true",
@@ -65,9 +63,7 @@
         "silver_transformation_json_dev": "/Volumes/{catalog}/{schema}/conf_files/{username}/consumers/.internal/consumer_silver_query.json",
 
         "silver_cdc_apply_changes": {
-            "keys": [
-                "consumer_id"
-            ],
+            "keys": ["consumer_id","segment"],
             "sequence_by": "consumer_id",
             "scd_type": "1"
         }
