@@ -31,6 +31,15 @@ resources:
         - notebook:
             path: ${workspace.file_path}/src/deploy_pipeline
 
+      tags:
+        - team: team1
+        - costcenter: 1123
+
+      event_log:
+        catalog: ${var.event_log_catalog}
+        schema: ${var.event_log_schema}
+        name: "event_log_bronze_cards"
+
       configuration:
         layer: bronze
         bronze.dataflowspecTable: ${var.bronze_dataflowspecTable}
@@ -47,6 +56,15 @@ resources:
       libraries:
         - notebook:
             path: ${workspace.file_path}/src/deploy_pipeline
+
+      tags:
+        - team: team1
+        - costcenter: 1123
+
+      event_log:
+        catalog: ${var.event_log_catalog}
+        schema: ${var.event_log_schema}
+        name: "event_log_bronze_cards"
 
       configuration:
         layer: silver
