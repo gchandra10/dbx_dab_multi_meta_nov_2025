@@ -1,0 +1,55 @@
+resources:
+  jobs:
+    sales_r2s_job:
+      name: Sales - Raw To Silver
+      description: "Job to execute the Bronze and Silver DLT-META pipelines"
+
+      tasks:
+        - task_key: execute_bronze_sales
+          description: "Run DLT pipeline for Bronze Sales"
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.pipeline_bronze_sales.id}
+            full_refresh: false
+
+        - task_key: execute_silver_sales
+          description: "Run DLT pipeline for Silver Sales"
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.pipeline_silver_sales.id}
+            full_refresh: false
+          depends_on:
+            - task_key: execute_bronze_sales
+            
+  pipelines:
+    pipeline_bronze_sales:
+      name: Sales - R2B Pipeline
+      catalog: ${var.catalog}
+      schema: ${var.schema}
+      development: ${var.development_enabled}
+      photon: ${var.photon_enabled}
+      serverless: ${var.serverless_enabled}
+      libraries:
+        - notebook:
+            path: ${workspace.file_path}/src/deploy_pipeline
+
+      configuration:
+        layer: bronze
+        bronze.dataflowspecTable: ${var.bronze_dataflowspecTable}
+        bronze.group: sales_onboarding
+        bundle.sourcePath: ${workspace.file_path}/src
+
+    pipeline_silver_sales:
+      name: Sales - B2S Pipeline
+      catalog: ${var.catalog}
+      schema: ${var.schema}
+      development: ${var.development_enabled}
+      photon: ${var.photon_enabled}
+      serverless: ${var.serverless_enabled}
+      libraries:
+        - notebook:
+            path: ${workspace.file_path}/src/deploy_pipeline
+
+      configuration:
+        layer: silver
+        silver.dataflowspecTable: ${var.silver_dataflowspecTable}
+        silver.group: sales_onboarding
+        bundle.sourcePath: ${workspace.file_path}/src 

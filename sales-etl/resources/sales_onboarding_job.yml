@@ -1,0 +1,37 @@
+resources:
+  jobs:
+    sales_onboarding_job:
+      name: Onboard Sales
+      description: "Job to Onboard Bronze and Silver tables for Sales ETL"
+
+      tasks:
+        - task_key: onboard_bronze_silver_tables
+          spark_python_task:
+            python_file: ${workspace.file_path}/src/onboard_bronze_silver.py
+            parameters:
+              - --database
+              - ${var.catalog}.${var.schema}
+              - --onboarding_file_path
+              - /Volumes/${var.catalog}/${var.schema}/conf_files/${workspace.current_user.short_name}/sales/.internal/sales_onboarding.json
+              - --bronze_dataflowspec_table
+              - ${var.bronze_dataflowspecTable}
+              - --silver_dataflowspec_table
+              - ${var.silver_dataflowspecTable}
+              - --env
+              - ${bundle.target}
+              - --version
+              - "v1"
+              - --import_author
+              - ganeshchandra
+              - --uc_enabled
+              - "True"
+              - --overwrite
+              - " "
+          environment_key: default
+
+      environments:
+        - environment_key: default
+          spec:
+            environment_version: "4"
+            dependencies:
+              - dlt-meta
