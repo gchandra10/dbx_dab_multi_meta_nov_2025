@@ -24,16 +24,11 @@
         "bronze_cluster_by": ["product"],
 
         "bronze_table_properties": {
-            "pipelines.autoOptimize.managed": "true",
             "pipelines.reset.allowed": "true",
-            "delta.autoOptimize.optimizeWrite": "true",
-            "delta.autoOptimize.autoCompact": "true",
-            "delta.tuneFileSizesForRewrites": "true",
             "delta.columnMapping.mode": "name",
             "delta.checkpointRetentionDuration": "30 days",
             "delta.deletedFileRetentionDuration": "30 days",
             "delta.logRetentionDuration": "30 days",
-            "clusterByAuto": "true"
         },
 
         "bronze_reader_options": {
@@ -51,15 +46,15 @@
         "silver_cluster_by": ["product"],
 
         "silver_table_properties": {
-            "pipelines.autoOptimize.managed": "true",
             "pipelines.reset.allowed": "true",
-            "delta.autoOptimize.optimizeWrite": "true",
-            "delta.autoOptimize.autoCompact": "true",
             "delta.tuneFileSizesForRewrites": "true",
             "delta.columnMapping.mode": "name",
-            "delta.checkpointRetentionDuration": "30 days",
-            "delta.deletedFileRetentionDuration": "30 days",
-            "delta.logRetentionDuration": "30 days"
+            "delta.checkpointRetentionDuration": "14 days",
+            "delta.deletedFileRetentionDuration": "14 days",
+            "delta.logRetentionDuration": "14 days",
+            "delta.enableChangeDataFeed": "true",
+            "delta.enableDeletionVectors": "true",
+            "clusterByAuto": "true"
         },
 
         "silver_transformation_json_dev": "/Volumes/{catalog}/{schema}/conf_files/{username}/sales/.internal/sales_silver_query.json",
