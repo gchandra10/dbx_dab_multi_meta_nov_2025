@@ -28,11 +28,13 @@ git checkout -b feature/sales1
 
 # make changes
 
+git status
+git add .
+git commit -m "Add sales1 pipeline"
+
 databricks bundle validate -t dev --var="branch_name=feature_sales1"
 databricks bundle deploy -t dev --var="branch_name=feature_sales1"
 
-git add .
-git commit -m "Add sales1 pipeline"
 git push -u origin feature/sales1
 ```
 
@@ -45,11 +47,13 @@ git checkout -b feature/sales2
 
 # make changes
 
+git status
+git add .
+git commit -m "Add sales2 pipeline"
+
 databricks bundle validate -t dev --var="branch_name=feature_sales2"
 databricks bundle deploy -t dev --var="branch_name=feature_sales2"
 
-git add .
-git commit -m "Add sales2 pipeline"
 git push -u origin feature/sales2
 ```
 
