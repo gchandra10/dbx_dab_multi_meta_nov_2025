@@ -60,7 +60,7 @@ targets:
     mode: production
     workspace:
       host: https://adb-984752964297111.11.azuredatabricks.net
-      root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}
+      root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}/${var.branch_name}
       artifact_path: /Volumes/gannychan/dlt_meta_demo/conf_files/${workspace.current_user.short_name}/sales
       
     variables:
