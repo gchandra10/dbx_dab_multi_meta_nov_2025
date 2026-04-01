@@ -32,8 +32,8 @@ resources:
             path: ${workspace.file_path}/src/deploy_pipeline
 
       tags:
-        - team: team1
-        - costcenter: 1123
+        team: team1
+        costcenter: 1123
 
       event_log:
         catalog: ${var.event_log_catalog}
@@ -58,8 +58,8 @@ resources:
             path: ${workspace.file_path}/src/deploy_pipeline
 
       tags:
-        - team: team1
-        - costcenter: 1123
+        team: team1
+        costcenter: 1123
 
       event_log:
         catalog: ${var.event_log_catalog}
