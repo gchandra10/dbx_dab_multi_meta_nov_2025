@@ -1,7 +1,7 @@
 resources:
   jobs:
     sales_onboarding_job:
-      name: Onboard Sales
+      name: Onboard Sales${var.resource_name_suffix}
       description: "Job to Onboard Bronze and Silver tables for Sales ETL"
 
       tasks:
@@ -22,7 +22,7 @@ resources:
               - --version
               - "v1"
               - --import_author
-              - ganeshchandra
+              - ganeshchandrasekaran
               - --uc_enabled
               - "True"
               - --overwrite

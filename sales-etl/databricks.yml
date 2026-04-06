@@ -24,6 +24,9 @@ variables:
   branch_name:
     description: The name of the current git branch
     default: main
+  resource_name_suffix:
+    description: Unique suffix for isolation
+    default: _main
 
 targets:
   dev:
@@ -43,8 +46,8 @@ targets:
       host: https://adb-984752964297111.11.azuredatabricks.net
       root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}/${var.branch_name}
       state_path: ${workspace.root_path}/state
-
-      artifact_path: /Volumes/gannychan/dlt_meta_demo/conf_files/${workspace.current_user.short_name}/sales
+      
+      artifact_path: /Volumes/gannychan/dlt_meta_demo/conf_files/${workspace.current_user.short_name}/sales/
 
     variables:
       catalog: gannychan
@@ -54,6 +57,7 @@ targets:
       development_enabled: false
       bronze_dataflowspecTable: bronze_sales_dataflowspec
       silver_dataflowspecTable: silver_sales_dataflowspec
+      resource_name_suffix: _${var.branch_name}
       
 
   prod:

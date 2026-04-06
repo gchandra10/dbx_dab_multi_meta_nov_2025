@@ -1,7 +1,7 @@
 resources:
   jobs:
     sales_onboarding_job2:
-      name: Onboard Sales
+      name: Onboard Sales2${var.resource_name_suffix}
       description: "Job to Onboard Bronze and Silver tables for Sales ETL"
 
       tasks:

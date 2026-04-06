@@ -1,7 +1,7 @@
 resources:
   jobs:
     sales_r2s_job2:
-      name: Sales - Raw To Silver2
+      name: Sales - Raw To Silver2${var.resource_name_suffix}
       description: "Job to execute the Bronze and Silver DLT-META pipelines"
 
       tasks:
@@ -21,7 +21,7 @@ resources:
             
   pipelines:
     pipeline_bronze_sales2:
-      name: Sales - R2B Pipeline2
+      name: Sales - R2B Pipeline2${var.resource_name_suffix}
       catalog: ${var.catalog}
       schema: ${var.schema}
       development: ${var.development_enabled}
@@ -38,7 +38,7 @@ resources:
         bundle.sourcePath: ${workspace.file_path}/src
 
     pipeline_silver_sales2:
-      name: Sales - B2S Pipeline2
+      name: Sales - B2S Pipeline2${var.resource_name_suffix}
       catalog: ${var.catalog}
       schema: ${var.schema}
       development: ${var.development_enabled}
