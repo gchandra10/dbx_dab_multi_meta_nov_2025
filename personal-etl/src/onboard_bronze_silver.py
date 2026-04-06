@@ -15,7 +15,6 @@ parser.add_argument("--overwrite", type=str, default="", help="Overwrite existin
 parser.add_argument("--version", type=str, default="v1", help="Version of the onboarding process")
 parser.add_argument("--uc_enabled", type=str, default="True", help="Flag to indicate if Unity Catalog is enabled (True/False)")
 
-# parser.add_argument("--onboard_layer", type=str, default="bronze_silver", help="Layer to onboard (e.g., bronze_silver, silver)")
 
 args = parser.parse_args()
 database = args.database
@@ -25,7 +24,7 @@ silver_dataflowspec_table = args.silver_dataflowspec_table
 env = args.env
 import_author = args.import_author
 uc_enabled = args.uc_enabled
-# onboard_layer = args.onboard_layer
+
 
 # Determine overwrite flag based on existence of tables
 bronze_dataflow_exists = spark.catalog.tableExists(f"{database}.{bronze_dataflowspec_table}")
@@ -41,11 +40,5 @@ onboarding_params_map["silver_dataflowspec_table"] = silver_dataflowspec_table
 onboarding_params_map["import_author"] = import_author
 onboarding_params_map["version"] = "v1"
 onboarding_params_map["overwrite"] = overwrite
-
-#onboarding_params_map["uc_enabled"] = uc_enabled
-#onboarding_params_map["onboard_layer"] = onboard_layer
-
-
-# print(type(onboarding_params_map), onboarding_params_map)
 
 OnboardDataflowspec(spark, onboarding_params_map, uc_enabled=uc_enabled).onboard_dataflow_specs()

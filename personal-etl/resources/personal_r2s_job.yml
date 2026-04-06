@@ -1,0 +1,80 @@
+resources:
+  jobs:
+    deploy_pci_udfs:
+      name: deploy-pci-udfs${var.resource_name_suffix}
+      tasks:
+        - task_key: create_pci_udfs
+          spark_python_task:
+            python_file: ${workspace.file_path}/src/deploy_pci_udfs.py
+            parameters:
+              - ${var.catalog}
+              - ${var.schema}
+
+          environment_key: default
+
+      environments:
+        - environment_key: default
+          spec:
+            environment_version: "4"
+              
+    personal_r2s_job:
+      name: Personal - Raw To Silver${var.resource_name_suffix}
+      description: "Job to execute the Bronze and Silver DLT-META pipelines"
+
+      tasks:
+        - task_key: execute_bronze_personal
+          description: "Run DLT pipeline for Bronze Personal"
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.pipeline_bronze_personal.id}
+            full_refresh: false
+
+        - task_key: execute_silver_personal
+          description: "Run DLT pipeline for Silver Personal"
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.pipeline_silver_personal.id}
+            full_refresh: false
+          depends_on:
+            - task_key: execute_bronze_personal
+            
+  pipelines:
+    pipeline_bronze_personal:
+      name: Personal - R2B Pipeline${var.resource_name_suffix}
+      catalog: ${var.catalog}
+      schema: ${var.schema}
+      development: ${var.development_enabled}
+      photon: ${var.photon_enabled}
+      serverless: ${var.serverless_enabled}
+      libraries:
+        - file:
+            path: ${workspace.file_path}/src/deploy_pipeline.py
+
+      environment:
+        dependencies:
+          - "dlt-meta"
+
+      configuration:
+        layer: bronze
+        bronze.dataflowspecTable: ${var.bronze_dataflowspecTable}
+        bronze.group: personal_onboarding
+        bundle.sourcePath: ${workspace.file_path}/src
+
+    pipeline_silver_personal:
+      name: Personal - B2S Pipeline${var.resource_name_suffix}
+      catalog: ${var.catalog}
+      schema: ${var.schema}
+      development: ${var.development_enabled}
+      photon: ${var.photon_enabled}
+      serverless: ${var.serverless_enabled}
+      libraries:
+        - file:
+            path: ${workspace.file_path}/src/deploy_pipeline.py
+
+      environment:
+        dependencies:
+          - "dlt-meta"
+
+      configuration:
+        layer: silver
+        silver.dataflowspecTable: ${var.silver_dataflowspecTable}
+        silver.group: personal_onboarding
+        bundle.sourcePath: ${workspace.file_path}/src 

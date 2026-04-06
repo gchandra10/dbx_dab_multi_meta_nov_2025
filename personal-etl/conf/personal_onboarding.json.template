@@ -1,13 +1,13 @@
 [
     {
-        "data_flow_id": "100",
-        "data_flow_group": "sales_onboarding",
+        "data_flow_id": "500",
+        "data_flow_group": "personal_onboarding",
 
         "source_system": "Manual_Download",
         "source_format": "cloudFiles",
 
         "source_details": {
-            "source_path_dev": "/Volumes/{catalog}/{schema}/conf_files/{username}/sales/.internal/",
+            "source_path_dev": "/Volumes/{catalog}/{schema}/conf_files/{username}/personal/.internal/",
             "source_metadata": {
                 "include_autoloader_metadata_column": "True",
                 "autoloader_metadata_col_name": "source_metadata",
@@ -19,16 +19,18 @@
         },
 
         "bronze_database_dev": "{catalog}.{schema}",
-        "bronze_table": "bronze_sales",
-        "bronze_quarantine_table": "bronze_sales_quarantine",
-        "bronze_cluster_by": ["product"],
+        "bronze_table": "bronze_personal",
+        "bronze_quarantine_table": "bronze_personal_quarantine",
+        "bronze_cluster_by": ["emp_id"],
 
         "bronze_table_properties": {
             "pipelines.reset.allowed": "true",
             "delta.columnMapping.mode": "name",
             "delta.checkpointRetentionDuration": "30 days",
             "delta.deletedFileRetentionDuration": "30 days",
-            "delta.logRetentionDuration": "30 days"
+            "delta.logRetentionDuration": "30 days",
+            "pci": "True",
+            "pci_columns": "credit_card_number,cvv"
         },
 
         "bronze_reader_options": {
@@ -41,9 +43,8 @@
         },
 
         "silver_database_dev": "{catalog}.{schema}",
-
-        "silver_table": "silver_sales",
-        "silver_cluster_by": ["product"],
+        "silver_table": "silver_personal",
+        "silver_cluster_by": ["emp_id"],
 
         "silver_table_properties": {
             "pipelines.reset.allowed": "true",
@@ -53,15 +54,14 @@
             "delta.deletedFileRetentionDuration": "14 days",
             "delta.logRetentionDuration": "14 days",
             "delta.enableChangeDataFeed": "true",
-            "delta.enableDeletionVectors": "true",
-            "clusterByAuto": "true"
+            "delta.enableDeletionVectors": "true"
         },
 
-        "silver_transformation_json_dev": "/Volumes/{catalog}/{schema}/conf_files/{username}/sales/.internal/sales_silver_query.json",
+        "silver_transformation_json_dev": "/Volumes/{catalog}/{schema}/conf_files/{username}/personal/.internal/personal_silver_query.json",
 
         "silver_cdc_apply_changes": {
-            "keys": ["sale_id"],
-            "sequence_by": "sale_id",
+            "keys": ["emp_id"],
+            "sequence_by": "emp_id",
             "scd_type": "1"
         }
     }

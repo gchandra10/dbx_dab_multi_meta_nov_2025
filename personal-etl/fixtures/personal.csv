@@ -1,0 +1,11 @@
+emp_id,first_name,last_name,email,phone,ssn,credit_card_number,cvv,expiry_date,address,salary,join_date
+30001,John,Doe,john.doe@example.com,2015550101,123-45-6789,4111111111111111,123,12/27,12 Park Ave NY,85000,2022-03-15
+30002,Jane,Smith,jane.smith@example.com,2015550102,234-56-7890,5500000000000004,456,11/26,45 River Rd NJ,92000,2021-07-10
+30003,Michael,Brown,michael.brown@example.com,2015550103,345-67-8901,340000000000009,789,10/28,78 Elm St CA,78000,2023-01-22
+30004,Emily,Davis,emily.davis@example.com,2015550104,456-78-9012,6011000000000004,321,09/27,22 Lake View TX,88000,2020-11-05
+30005,David,Wilson,david.wilson@example.com,2015550105,567-89-0123,3530111333300000,654,08/26,91 Sunset Blvd CA,99000,2019-06-18
+30006,Sophia,Moore,sophia.moore@example.com,2015550106,678-90-1234,4111111111111111,987,07/29,10 Broadway NY,87000,2022-09-30
+30007,James,Taylor,james.taylor@example.com,2015550107,789-01-2345,5500000000000004,147,06/28,55 Market St SF,91000,2021-04-12
+30008,Olivia,Anderson,olivia.anderson@example.com,2015550108,890-12-3456,340000000000009,258,05/27,33 Ocean Dr FL,86000,2023-02-14
+30009,William,Thomas,william.thomas@example.com,2015550109,901-23-4567,6011000000000004,369,04/26,77 Hill Rd WA,94000,2020-08-25
+30010,Ava,Jackson,ava.jackson@example.com,2015550110,012-34-5678,3530111333300000,159,03/29,18 Pine St IL,83000,2021-12-01
